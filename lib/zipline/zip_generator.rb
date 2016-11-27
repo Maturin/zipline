@@ -42,6 +42,8 @@ module Zipline
     def write_file(streamer, file, name)
       streamer.write_deflated_file(name) do |writer_for_file|
         if file.respond_to?(:url) || file.respond_to?(:expiring_url)
+          raise "Curl (curb gem) is not available. Try 'gem install curb'." unless Curl
+
           # expiring_url seems needed for paperclip to work
           the_remote_url = file.respond_to?(:expiring_url) ? file.expiring_url : file.url
           c = Curl::Easy.new(the_remote_url) do |curl|

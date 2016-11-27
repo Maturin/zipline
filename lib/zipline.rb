@@ -1,7 +1,13 @@
-require "zipline/version"
-require 'curb'
+require 'zipline/version'
 require 'zip_tricks'
-require "zipline/zip_generator"
+require 'zipline/zip_generator'
+
+begin
+  require 'curb'
+rescue LoadError
+  Curl = false
+end
+
 
 # class MyController < ApplicationController
 #   include Zipline
